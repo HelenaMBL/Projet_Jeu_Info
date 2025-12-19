@@ -18,6 +18,13 @@ void afficherRegles(){
     printf("\nUtilisez z/q/s/w pour séléctionner les cases pour éliminer un maximum d'items et passer au niveau suivant\n");
 }
 
+void fonctionchargement(char tab[17][79]){
+    FILE* fichier= fopen("grille.txt", "r");
+    fread(tab, sizeof(char), sizeof(tab), fichier);
+    fclose(fichier);
+}
+
+
 void remiseAZero(){
     gotoxy(0,0);
     text_color(LIGHTGRAY);
@@ -93,6 +100,7 @@ void jouer(){
     int yJoueur = HAUTEUR / 2;
     int temps=15;
     int niveau=1;
+    char tab[17][79];
     //variables pour le trésor
     int xTresor, yTresor;
     //variables pour la gestion du temps
@@ -106,11 +114,16 @@ void jouer(){
     temps_debut = clock();
     //Affichage du cadre
     //boucle de jeu
+    fonctionchargement(tab);
     do {
         remiseAZero();
-        afficheNiveau(niveau);
-        afficherCadre();
-        afficheTemps(temps_debut);
+        //afficheNiveau(niveau);
+        //afficherCadre();
+        //afficheTemps(temps_debut);
+        //fonctionchargement(tab[17][79]);
+        for (int i=0; i<=17; i++){
+            printf(tab[i]);
+        }
 
     } while (TRUE);
     return; 
