@@ -1,0 +1,6 @@
+*.o
+*.zip
+*.exe
+#présentation info_files/
+présentation*
+projet*
