@@ -84,30 +84,29 @@ void remiseAZero(){
     text_color(LIGHTGRAY);
 }
 
-void afficheLigne(const char* motif){
+void afficheLigne(const char* motifDebut, const char* motif, const char* motifFin){
+    printf (motifDebut);
     for (int x = 0; x <= COLONNES-1; x++) {
             printf (motif);
     }
-    printf ("\n");
+    printf ("%s\n" ,motifFin);
 }
 
 void afficherCadre() {
     remiseAZero();
-    printf ("+");
-    afficheLigne("--+");
-    for (int y = 0; y <= LIGNES-1; y++) {
-        //for (int x = 0; x <= COLONNES-1; x++) {
-        printf("|");
-        afficheLigne("  |");
-        printf ("+");
-        afficheLigne("--+");
-        //}
+    //║╝╗╚ ═ ╬ ╦ ╩ ╠ ╣ ╔
+    afficheLigne("╔", "══╦", "══╗");
+    for (int y = 0; y <= LIGNES-2; y++) {
+        afficheLigne("║", "  ║", "  ║");
+        afficheLigne("╠", "══╬", "══╣");
     }
+    afficheLigne("║", "  ║", "  ║");
+    afficheLigne("╚", "══╩", "══╝");
 }
 
    void afficherItems(int grille[LIGNES][COLONNES], Curseur curseur) {
     int i, j;
-    int x0 = 2;
+    int x0 = 1; //2
     int y0 = 3;
 
     for (i = 0; i < LIGNES; i++) {

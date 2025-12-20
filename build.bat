@@ -7,7 +7,9 @@ rem del *.exe
 mingw32-make CandyCrush.exe
 rem gcc  code_projet_info.o affichage_console.o -o code_projet_info.exe
 rem code_projet_info.exe
-
+if ERRORLEVEL 1 (
+    exit /b 1
+)
 CandyCrush.exe 
 
  
