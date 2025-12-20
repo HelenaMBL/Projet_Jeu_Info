@@ -30,6 +30,7 @@ void partieEnCours(Partie *p) {
         resultat = jouerNiveau(p);
 
         if (resultat == 1) { // ✅ Niveau réussi
+            animationNiveauGagne(p->niveau);
             p->niveau++;
 
             if (p->niveau == 2)
@@ -41,20 +42,21 @@ void partieEnCours(Partie *p) {
         }
         else if (resultat == 0) { // ❌ Niveau échoué
             p->vies--;
+            if(p->niveau ==1) p->coupsRestants=COUPS_NIV1;
+            if(p->niveau ==2) p->coupsRestants=COUPS_NIV2;      
+            if(p->niveau ==3) p->coupsRestants=COUPS_NIV3;      
 
             if (p->vies > 0) {
                 clrscr();
-                printf("\nPerte d'une vie !\n");
-                Sleep(2000);
+                animationNiveauPerdu(p->vies);
 
                 // 🔥 IMPORTANT : réinitialiser les objectifs du niveau
                 initialiserObjectifs(p);
             }
             else {
                 clrscr();
-                printf("\nGAME OVER\n");
+                animationGameOver();
                 continuer = 0;
-                Sleep(2000);
             }
         }
         else { // ⏹ Quitter
@@ -65,8 +67,7 @@ void partieEnCours(Partie *p) {
 
     if (p->niveau > NB_NIVEAUX && p->vies > 0) {
         clrscr();
-        printf("JEU TERMINE, BRAVO !\n");
-        Sleep(2000);
+        animationJeuGagne();
     }
 }
 
@@ -146,6 +147,8 @@ int jouerNiveau(Partie *p) {
             Sleep(1500);
             melangerGrille(grille);
             stabiliserGrille(grille, p, p->niveau);
+            gotoxy(45, 20);
+            printf("                                ");
         }
 
         // Gestion du temps

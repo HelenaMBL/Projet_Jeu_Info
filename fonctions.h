@@ -91,6 +91,13 @@ void afficherItems(int grille[LIGNES][COLONNES], Curseur curseur);
 void afficherGrille(int grille[LIGNES][COLONNES], Curseur curseur);
 void afficherInformations(Partie p, int tempRestant);
 
+//animations 
+void animationNiveauGagne(int niveau);
+void animationNiveauPerdu(int viesRestantes);
+void animationJeuGagne();
+void animationGameOver();
+
+
 /* =========================================================
    PROTOTYPES - MODULE JEU (jeu.c)
    ========================================================= */

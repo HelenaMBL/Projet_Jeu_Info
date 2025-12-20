@@ -147,8 +147,8 @@ void afficherInformations(Partie p, int tempsRestant) {
 
     gotoxy(45, y++); printf("Niveau : %d", p.niveau);
     gotoxy(45, y++); printf("Vies restantes : %d", p.vies);
-    gotoxy(45, y++); printf("Coups restants : %d", p.coupsRestants);
-    gotoxy(45, y++); printf("Temps restant : %d s  ", tempsRestant); // espaces pour effacer reliquats
+    gotoxy(45, y++); printf("Coups restants : %3d", p.coupsRestants);
+    gotoxy(45, y++); printf("Temps restant : %3d s  ", tempsRestant); // espaces pour effacer reliquats
     y++;
 
     gotoxy(45,y++);printf("Objectifs :");
@@ -161,6 +161,78 @@ void afficherInformations(Partie p, int tempsRestant) {
     set_color(WHITE,BLACK);
 }
 
+// animation 
+
+void animationNiveauGagne(int niveau) {
+    clrscr();
+    set_color(LIGHTGREEN, BLACK);
+
+    for (int i = 0; i < 3; i++) {
+        clrscr();
+        gotoxy(30, 10);
+        printf("NIVEAU %d REUSSI !", niveau);
+        Sleep(300);
+
+        clrscr();
+        Sleep(200);
+    }
+
+    gotoxy(28, 12);
+    printf("Preparation du niveau suivant...");
+    Sleep(1500);
+    set_color(WHITE,BLACK);
+}
+void animationNiveauPerdu(int viesRestantes) {
+    clrscr();
+    set_color(LIGHTRED, BLACK);
+
+    gotoxy(30, 10);
+    printf("NIVEAU ECHOUE !");
+    Sleep(800);
+
+    gotoxy(30, 12);
+    printf("Vies restantes : %d", viesRestantes);
+    Sleep(1500);
+    set_color(WHITE,BLACK);
+}
+void animationJeuGagne() {
+    clrscr();
+    set_color(YELLOW, BLACK);
+
+    for (int i = 0; i < 5; i++) {
+        gotoxy(25 + i, 8);
+        printf("★");
+        gotoxy(55 - i, 8);
+        printf("★");
+        Sleep(200);
+    }
+
+    gotoxy(30, 12);
+    printf("BRAVO !");
+    gotoxy(24, 14);
+    printf("VOUS AVEZ TERMINE LE JEU !");
+    Sleep(3000);
+    set_color(WHITE,BLACK);
+}
+void animationGameOver() {
+    clrscr();
+    set_color(LIGHTRED, BLACK);
+
+    for (int i = 0; i < 4; i++) {
+        clrscr();
+        gotoxy(32, 10);
+        printf("GAME OVER");
+        Sleep(300);
+
+        clrscr();
+        Sleep(200);
+    }
+
+    gotoxy(28, 12);
+    printf("Retour au menu principal...");
+    Sleep(2000);
+    set_color(WHITE,BLACK);
+}
 
 
 /*void afficherMenu() {
