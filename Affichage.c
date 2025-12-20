@@ -102,6 +102,20 @@ void afficherCadre() {
     afficheLigne("╚", "══╩", "══╝");
 }
 
+void afficherUneItem(int item) {
+    switch (item) {
+        case ITEM_1: text_color(LIGHTRED);printf("🐸"); break;
+        case ITEM_2: text_color(LIGHTGREEN); printf("⭐"); break;
+        case ITEM_3: text_color(LIGHTMAGENTA); printf("🧡"); break;
+        case ITEM_4: text_color(LIGHTCYAN); printf("💎"); break;
+        case ITEM_5: text_color(YELLOW); printf("🐼"); break;
+        case ITEM_BONUS: text_color(WHITE); printf("🎯"); break;
+        case ITEM_JOKER: text_color(WHITE); printf("😎"); break;
+        default: printf(" ");
+    }
+    set_color(WHITE, BLACK);
+}
+
 void afficherItems(int grille[LIGNES][COLONNES], Curseur curseur) {
     int i, j;
     int x0=1;
@@ -122,21 +136,12 @@ void afficherItems(int grille[LIGNES][COLONNES], Curseur curseur) {
             }
 
             // Affichage de l’item
-            switch (grille[i][j]) {
-                case ITEM_1: text_color(LIGHTRED);printf("🐸"); break;
-                case ITEM_2: text_color(LIGHTGREEN); printf("⭐"); break;
-                case ITEM_3: text_color(LIGHTMAGENTA); printf("🧡"); break;
-                case ITEM_4: text_color(LIGHTCYAN); printf("💎"); break;
-                case ITEM_5: text_color(YELLOW); printf("🐼"); break;
-                case ITEM_BONUS: text_color(WHITE); printf("🎯"); break;
-                case ITEM_JOKER: text_color(WHITE); printf("😎"); break;
-                default: printf(" ");
-            }
-
+            afficherUneItem(grille[i][j]);
             set_color(WHITE, BLACK);
         }
     }
 }
+
 void afficherGrille(int grille[LIGNES][COLONNES], Curseur curseur) {
     afficherItems(grille, curseur);
 }
@@ -144,26 +149,26 @@ void afficherGrille(int grille[LIGNES][COLONNES], Curseur curseur) {
 /* =========================================================
    AFFICHAGE DES INFORMATIONS DE JEU
    ========================================================= */
-void afficherInformations(Partie p, int tempsRestant) {
+void afficherInformations(Partie * p, int tempsRestant) {
     int y = 3;
 
     set_color(WHITE, BLACK);
 
-    gotoxy(45, y++); printf("Niveau : %d", p.niveau);
-    gotoxy(45, y++); printf("Vies restantes : %d", p.vies);
-    gotoxy(45, y++); printf("Coups restants : %d", p.coupsRestants);
+    gotoxy(45, y++); printf("Niveau : %d", p->niveau);
+    gotoxy(45, y++); printf("Vies restantes : %d", p->vies);
+    gotoxy(45, y++); printf("Coups restants : %d", p->coupsRestants);
     gotoxy(45, y++); printf("Temps restant : %d s  ", tempsRestant); // espaces pour effacer reliquats
     y++;
 
     gotoxy(45,y++);printf("Objectifs :");
-    gotoxy(47,y++);text_color(LIGHTRED);printf("♥ : %d", p.objectifs[1]);
-    gotoxy(47,y++);text_color(LIGHTGREEN); printf("♠ : %d", p.objectifs[2]);
-    gotoxy(47,y++);text_color(LIGHTMAGENTA); printf("♦ : %d", p.objectifs[3]);
-    gotoxy(47,y++);text_color(LIGHTCYAN); printf("♣ : %d", p.objectifs[4]);
-    gotoxy(47,y++);text_color(YELLOW); printf("★ : %d", p.objectifs[5]);
-
+    for(int i=1; i<=NB_ITEMS; i++) {
+        gotoxy(47, y++); 
+        afficherUneItem(i);
+        printf ("   Item %d : %d   ", i, p->objectifs[i]); // espaces pour nettoyer
+    }
     set_color(WHITE,BLACK);
 }
+
 
 void afficherAnimationNiveau(int grille[LIGNES][COLONNES], Curseur curseur) {
     int i, j;

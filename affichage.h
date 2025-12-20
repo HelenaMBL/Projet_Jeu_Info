@@ -58,7 +58,7 @@
    STRUCTURES
    ========================================================= */
 
-/* Informations sur la partie */
+/* Informations sur la Partie */
 typedef struct {
     int niveau;
     int vies;
@@ -91,7 +91,7 @@ void afficherItems(int grille[LIGNES][COLONNES], Curseur curseur);
 
 /* Affichage du jeu */
 void afficherGrille(int grille[LIGNES][COLONNES], Curseur curseur);
-void afficherInformations(Partie p, int tempRestant);
+void afficherInformations(Partie* p, int tempRestant);
 
 void afficherAnimationNiveau(int grille[LIGNES][COLONNES], Curseur curseur);
 /* =========================================================
@@ -104,23 +104,23 @@ int verifierGrilleInitiale(int grille[LIGNES][COLONNES]);
 
 /* Deplacements */
 int permutationValide(int grille[LIGNES][COLONNES], int l1, int c1, int l2, int c2);
-void initialiserObjectifs(Partie *p);
+void initialiserObjectifs(Partie* p);
 
 /* Detection et suppression */
-int detecterSuites4(int grille[LIGNES][COLONNES], Partie *p);
-int detecterSuites6(int grille[LIGNES][COLONNES], Partie *p);
-int detecterCroix(int grille[LIGNES][COLONNES], Partie *p);
-int detecterCarre(int grille[LIGNES][COLONNES], Partie *p);
+int detecterSuites4(int grille[LIGNES][COLONNES], Partie* p);
+int detecterSuites6(int grille[LIGNES][COLONNES], Partie* p);
+int detecterCroix(int grille[LIGNES][COLONNES], Partie* p);
+int detecterCarre(int grille[LIGNES][COLONNES], Partie* p);
 
-int appliquerSuppressions(int grille[LIGNES][COLONNES], Partie *p);
+int appliquerSuppressions(int grille[LIGNES][COLONNES], Partie* p);
 
 int existePermutation(int grille[LIGNES][COLONNES]);
 void melangerGrille(int grille[LIGNES][COLONNES]);
 
 /* Gravite */
-void appliquerGravite(int grille[LIGNES][COLONNES], Partie *p);
+void appliquerGravite(int grille[LIGNES][COLONNES], Partie* p);
 void remplirCasesVides(int grille[LIGNES][COLONNES], int niveau);
-int stabiliserGrille(int grille[LIGNES][COLONNES], Partie *p, int niveau);
+int stabiliserGrille(int grille[LIGNES][COLONNES], Partie* p, int niveau);
 
 /* Extensions */
 
@@ -132,14 +132,14 @@ int stabiliserGrille(int grille[LIGNES][COLONNES], Partie *p, int niveau);
 
 /* Partie */
 void nouvellePartie();
-void partieEnCours(Partie *p);
+void partieEnCours(Partie* p);
 
 /* Niveaux */
-int jouerNiveau(Partie *p);
+int jouerNiveau(Partie* p);
 
 /* Sauvegarde */
 void sauvegarderPartie(Partie p);
-int chargerPartie(Partie *p);
+int chargerPartie(Partie* p);
 
 #endif /* FONCTIONS_H */
 
@@ -248,29 +248,29 @@ void initialiserGrille(int grille[LIGNES][COLONNES], int niveau);
 int verifierGrilleInitiale(int grille[LIGNES][COLONNES]);
 
 int permutationValide(int grille[LIGNES][COLONNES], int l1, int c1, int l2, int c2);
-void initialiserObjectifs(Partie *p);
+void initialiserObjectifs(Partie* p);
 
-int detecterSuites4(int grille[LIGNES][COLONNES], Partie *p);
-int detecterSuites6(int grille[LIGNES][COLONNES], Partie *p);
-int detecterCroix(int grille[LIGNES][COLONNES], Partie *p);
-int detecterCarre(int grille[LIGNES][COLONNES], Partie *p);
+int detecterSuites4(int grille[LIGNES][COLONNES], Partie* p);
+int detecterSuites6(int grille[LIGNES][COLONNES], Partie* p);
+int detecterCroix(int grille[LIGNES][COLONNES], Partie* p);
+int detecterCarre(int grille[LIGNES][COLONNES], Partie* p);
 
-int appliquerSuppressions(int grille[LIGNES][COLONNES], Partie *p);
+int appliquerSuppressions(int grille[LIGNES][COLONNES], Partie* p);
 
 int existePermutation(int grille[LIGNES][COLONNES]);
 void melangerGrille(int grille[LIGNES][COLONNES]);
 
-void appliquerGravite(int grille[LIGNES][COLONNES], Partie *p);
+void appliquerGravite(int grille[LIGNES][COLONNES], Partie* p);
 void remplirCasesVides(int grille[LIGNES][COLONNES], int niveau);
-int stabiliserGrille(int grille[LIGNES][COLONNES], Partie *p, int niveau);
+int stabiliserGrille(int grille[LIGNES][COLONNES], Partie* p, int niveau);
 
 void nouvellePartie();
-void partieEnCours(Partie *p);
+void partieEnCours(Partie* p);
 
-int jouerNiveau(Partie *p);
+int jouerNiveau(Partie* p);
 
 void sauvegarderPartie(Partie p);
-int chargerPartie(Partie *p);
+int chargerPartie(Partie* p);
 
 #endif
 

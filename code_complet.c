@@ -187,7 +187,7 @@ void nouvellePartie() {
 /* =========================================================
    PARTIE EN COURS
    ========================================================= */
-void partieEnCours(Partie *p) {
+void partieEnCours(Partie* p) {
     int continuer = 1;
     int resultat;
 
@@ -227,7 +227,7 @@ void partieEnCours(Partie *p) {
 /* =========================================================
    JOUER UN NIVEAU
    ========================================================= */
-int jouerNiveau(Partie *p) {
+int jouerNiveau(Partie* p) {
     clrscr();
     int grille[LIGNES][COLONNES];
     Curseur curseur = {0,0,0,0,0};
@@ -330,7 +330,7 @@ void sauvegarderPartie(Partie p) {
 }
 
 
-int chargerPartie(Partie *p) {
+int chargerPartie(Partie* p) {
     char pseudo[50], ligne[200];
     clrscr();
     printf("Entrez votre pseudo pour charger la partie : ");
@@ -419,7 +419,7 @@ int permutationValide(int grille[LIGNES][COLONNES], int l1, int c1, int l2, int 
     return valide;
 }
 
-void initialiserObjectifs(Partie *p) {
+void initialiserObjectifs(Partie* p) {
     int obj1[NB_ITEMS] = OBJECTIFS_NIV1;
     int obj2[NB_ITEMS] = OBJECTIFS_NIV2;
     int obj3[NB_ITEMS] = OBJECTIFS_NIV3;
@@ -436,7 +436,7 @@ void initialiserObjectifs(Partie *p) {
 /* =========================================================
    DETECTION DES FIGURES
    ========================================================= */
-int detecterSuites4(int grille[LIGNES][COLONNES], Partie *p) {
+int detecterSuites4(int grille[LIGNES][COLONNES], Partie* p) {
     int i, j, count = 0;
     for (i = 0; i < LIGNES; i++) {
         for (j = 0; j < COLONNES - 3; j++) {
@@ -468,7 +468,7 @@ int detecterSuites4(int grille[LIGNES][COLONNES], Partie *p) {
     return count;
 }
 
-int detecterSuites6(int grille[LIGNES][COLONNES], Partie *p) {
+int detecterSuites6(int grille[LIGNES][COLONNES], Partie* p) {
     int i, j, count = 0;
     for (i = 0; i < LIGNES; i++) {
         for (j = 0; j < COLONNES - 5; j++) {
@@ -501,7 +501,7 @@ int detecterSuites6(int grille[LIGNES][COLONNES], Partie *p) {
     return count;
 }
 
-int detecterCroix(int grille[LIGNES][COLONNES], Partie *p) {
+int detecterCroix(int grille[LIGNES][COLONNES], Partie* p) {
     int i,j,count=0;
     for(i=1;i<LIGNES-1;i++){
         for(j=1;j<COLONNES-1;j++){
@@ -519,7 +519,7 @@ int detecterCroix(int grille[LIGNES][COLONNES], Partie *p) {
     return count;
 }
 
-int detecterCarre(int grille[LIGNES][COLONNES], Partie *p) {
+int detecterCarre(int grille[LIGNES][COLONNES], Partie* p) {
     int i,j,count=0;
     for(i=0;i<LIGNES-3;i++){
         for(j=0;j<COLONNES-3;j++){
@@ -561,7 +561,7 @@ void melangerGrille(int grille[LIGNES][COLONNES]) {
 /* =========================================================
    GRAVITE ET REMPLISSAGE
    ========================================================= */
-void appliquerGravite(int grille[LIGNES][COLONNES], Partie *p) {
+void appliquerGravite(int grille[LIGNES][COLONNES], Partie* p) {
     for(int j=0;j<COLONNES;j++){
         for(int i=LIGNES-2;i>=0;i--){
             if(grille[i][j]!=ITEM_VIDE){
@@ -592,7 +592,7 @@ void remplirCasesVides(int grille[LIGNES][COLONNES], int niveau) {
                 grille[i][j]=(rand()%NB_ITEMS)+1;
 }
 
-int stabiliserGrille(int grille[LIGNES][COLONNES],Partie *p,int niveau){
+int stabiliserGrille(int grille[LIGNES][COLONNES],Partie* p,int niveau){
     int total;
     do{
         total=0;
@@ -723,7 +723,7 @@ int main() {
    STRUCTURES
    ========================================================= */
 
-/* Informations sur la partie */
+/* Informations sur la Partie* /
 typedef struct {
     int niveau;
     int vies;
@@ -763,23 +763,23 @@ int verifierGrilleInitiale(int grille[LIGNES][COLONNES]);
 
 /* Deplacements */
 int permutationValide(int grille[LIGNES][COLONNES], int l1, int c1, int l2, int c2);
-void initialiserObjectifs(Partie *p);
+void initialiserObjectifs(Partie* p);
 
 /* Detection et suppression */
-int detecterSuites4(int grille[LIGNES][COLONNES], Partie *p);
-int detecterSuites6(int grille[LIGNES][COLONNES], Partie *p);
-int detecterCroix(int grille[LIGNES][COLONNES], Partie *p);
-int detecterCarre(int grille[LIGNES][COLONNES], Partie *p);
+int detecterSuites4(int grille[LIGNES][COLONNES], Partie* p);
+int detecterSuites6(int grille[LIGNES][COLONNES], Partie* p);
+int detecterCroix(int grille[LIGNES][COLONNES], Partie* p);
+int detecterCarre(int grille[LIGNES][COLONNES], Partie* p);
 
-int appliquerSuppressions(int grille[LIGNES][COLONNES], Partie *p);
+int appliquerSuppressions(int grille[LIGNES][COLONNES], Partie* p);
 
 int existePermutation(int grille[LIGNES][COLONNES]);
 void melangerGrille(int grille[LIGNES][COLONNES]);
 
 /* Gravite */
-void appliquerGravite(int grille[LIGNES][COLONNES], Partie *p);
+void appliquerGravite(int grille[LIGNES][COLONNES], Partie* p);
 void remplirCasesVides(int grille[LIGNES][COLONNES], int niveau);
-int stabiliserGrille(int grille[LIGNES][COLONNES], Partie *p, int niveau);
+int stabiliserGrille(int grille[LIGNES][COLONNES], Partie* p, int niveau);
 
 /* Extensions */
 
@@ -789,16 +789,16 @@ int stabiliserGrille(int grille[LIGNES][COLONNES], Partie *p, int niveau);
    PROTOTYPES - MODULE DEROULEMENT (deroulement.c)
    ========================================================= */
 
-/* Partie */
+/* Partie* /
 void nouvellePartie();
-void partieEnCours(Partie *p);
+void partieEnCours(Partie* p);
 
 /* Niveaux */
-int jouerNiveau(Partie *p);
+int jouerNiveau(Partie* p);
 
 /* Sauvegarde */
 void sauvegarderPartie(Partie p);
-int chargerPartie(Partie *p);
+int chargerPartie(Partie* p);
 
 //#endif 
 
@@ -886,27 +886,27 @@ int verifierGrilleInitiale(int grille[LIGNES][COLONNES]);
 
 int permutationValide(int grille[LIGNES][COLONNES], int l1, int c1, int l2, int c2);
 
-int detecterSuites4(int grille[LIGNES][COLONNES], Partie *p);
-int detecterSuites6(int grille[LIGNES][COLONNES], Partie *p);
-int detecterCroix(int grille[LIGNES][COLONNES], Partie *p);
-int detecterCarre(int grille[LIGNES][COLONNES], Partie *p);
+int detecterSuites4(int grille[LIGNES][COLONNES], Partie* p);
+int detecterSuites6(int grille[LIGNES][COLONNES], Partie* p);
+int detecterCroix(int grille[LIGNES][COLONNES], Partie* p);
+int detecterCarre(int grille[LIGNES][COLONNES], Partie* p);
 
-int appliquerSuppressions(int grille[LIGNES][COLONNES], Partie *p);
+int appliquerSuppressions(int grille[LIGNES][COLONNES], Partie* p);
 
 void appliquerGravite(int grille[LIGNES][COLONNES]);
 void remplirCasesVides(int grille[LIGNES][COLONNES], int niveau);
-int stabiliserGrille(int grille[LIGNES][COLONNES], Partie *p, int niveau);
+int stabiliserGrille(int grille[LIGNES][COLONNES], Partie* p, int niveau);
 
-void activerBonusCouleur(int grille[LIGNES][COLONNES], int type, Partie *p);
+void activerBonusCouleur(int grille[LIGNES][COLONNES], int type, Partie* p);
 
 /// Module deroulement 
 void nouvellePartie();
-void partieEnCours(Partie *p);
+void partieEnCours(Partie* p);
 
-int jouerNiveau(Partie *p);
+int jouerNiveau(Partie* p);
 
 void sauvegarderPartie(Partie p);
-int chargerPartie(Partie *p);
+int chargerPartie(Partie* p);
 
 #endif
 
@@ -925,7 +925,7 @@ void nouvellePartie() {
     partieEnCours(&p);
 }
 
-void partieEnCours(Partie *p) {
+void partieEnCours(Partie* p) {
     int continuer = 1;
     int resultat;
 
@@ -962,7 +962,7 @@ void partieEnCours(Partie *p) {
     }
 }
 
-int jouerNiveau(Partie *p) {
+int jouerNiveau(Partie* p) {
     clrscr();
     int grille[LIGNES][COLONNES];
     Curseur curseur = {0,0,0,0,0};
@@ -1046,7 +1046,7 @@ void sauvegarderPartie(Partie p) {
 }
 
 
-int chargerPartie(Partie *p) {
+int chargerPartie(Partie* p) {
     char pseudo[50], ligne[200];
     clrscr();
     printf("Entrez votre pseudo pour charger la partie : ");
@@ -1242,7 +1242,7 @@ int permutationValide(int grille[LIGNES][COLONNES], int l1, int c1, int l2, int 
     return valide;
 }
 
-int detecterSuites4(int grille[LIGNES][COLONNES], Partie *p) {
+int detecterSuites4(int grille[LIGNES][COLONNES], Partie* p) {
     int i, j, count = 0;
     for (i = 0; i < LIGNES; i++) {
         for (j = 0; j < COLONNES - 3; j++) {
@@ -1274,7 +1274,7 @@ int detecterSuites4(int grille[LIGNES][COLONNES], Partie *p) {
     return count;
 }
 
-int detecterSuites6(int grille[LIGNES][COLONNES], Partie *p) {
+int detecterSuites6(int grille[LIGNES][COLONNES], Partie* p) {
     int i, j, count = 0;
     for (i = 0; i < LIGNES; i++) {
         for (j = 0; j < COLONNES - 5; j++) {
@@ -1306,7 +1306,7 @@ int detecterSuites6(int grille[LIGNES][COLONNES], Partie *p) {
     return count;
 }
 
-int detecterCroix(int grille[LIGNES][COLONNES], Partie *p) {
+int detecterCroix(int grille[LIGNES][COLONNES], Partie* p) {
     int i,j,count=0;
     for(i=1;i<LIGNES-1;i++){
         for(j=1;j<COLONNES-1;j++){
@@ -1324,7 +1324,7 @@ int detecterCroix(int grille[LIGNES][COLONNES], Partie *p) {
     return count;
 }
 
-int detecterCarre(int grille[LIGNES][COLONNES], Partie *p) {
+int detecterCarre(int grille[LIGNES][COLONNES], Partie* p) {
     int i,j,count=0;
     for(i=0;i<LIGNES-3;i++){
         for(j=0;j<COLONNES-3;j++){
@@ -1368,7 +1368,7 @@ void remplirCasesVides(int grille[LIGNES][COLONNES], int niveau) {
                 grille[i][j]=(rand()%NB_ITEMS)+1;
 }
 
-int stabiliserGrille(int grille[LIGNES][COLONNES],Partie *p,int niveau){
+int stabiliserGrille(int grille[LIGNES][COLONNES],Partie* p,int niveau){
     int total;
     do{
         total=0;
@@ -1382,7 +1382,7 @@ int stabiliserGrille(int grille[LIGNES][COLONNES],Partie *p,int niveau){
     return total;
 }
 
-void activerBonusCouleur(int grille[LIGNES][COLONNES], int type, Partie *p){
+void activerBonusCouleur(int grille[LIGNES][COLONNES], int type, Partie* p){
     for(int i=0;i<LIGNES;i++)
         for(int j=0;j<COLONNES;j++)
             if(grille[i][j]==type){grille[i][j]=ITEM_VIDE;if(p)p->objectifs[type]--;}

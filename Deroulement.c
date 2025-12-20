@@ -4,20 +4,20 @@
    NOUVELLE PARTIE
    ========================================================= */
 void nouvellePartie() {
-    Partie p;
-    p.niveau = 1;
-    p.vies = VIES_INITIALES;
-    p.coupsRestants = COUPS_NIV1;
-    initialiserObjectifs(&p);
-    p.debutNiveau = time(NULL);
+    Partie partie;
+    partie.niveau = 1;
+    partie.vies = VIES_INITIALES;
+    partie.coupsRestants = COUPS_NIV1;
+    initialiserObjectifs(&partie);
+    partie.debutNiveau = time(NULL);
 
-    partieEnCours(&p);
+    partieEnCours(&partie);
 }
 
 /* =========================================================
    PARTIE EN COURS
    ========================================================= */
-void partieEnCours(Partie *p) {
+void partieEnCours(Partie* p) {
     boolean continuer = TRUE;
     int resultat;
 
@@ -61,7 +61,7 @@ void partieEnCours(Partie *p) {
 /* =========================================================
    JOUER UN NIVEAU
    ========================================================= */
-int jouerNiveau(Partie *p) {
+int jouerNiveau(Partie* p) {
     clrscr();
     int grille[LIGNES][COLONNES];
     Curseur curseur = {0,0,0,0,0};
@@ -83,7 +83,7 @@ int jouerNiveau(Partie *p) {
         int tempsEcoule = (int)difftime(time(NULL), debut);
         int tempsRestant = tempsMax - tempsEcoule; 
         afficherGrille(grille, curseur);
-        afficherInformations(*p, tempsRestant);
+        afficherInformations(p, tempsRestant);
         if(!existePermutation(grille)) {
             gotoxy(45, 20);
             printf("Plus de combinaisons possibles !");
@@ -133,7 +133,7 @@ int jouerNiveau(Partie *p) {
         Sleep(50);
         if(rafraichir){
             afficherGrille(grille,curseur);
-            afficherInformations(*p,tempsRestant);
+            afficherInformations(p,tempsRestant);
             rafraichir = 0;
         }
     }
@@ -173,7 +173,7 @@ void sauvegarderPartie(Partie p) {
 }
 
 
-int chargerPartie(Partie *p) {
+int chargerPartie(Partie* p) {
     char pseudo[50], ligne[200];
     clrscr();
     printf("Entrez votre pseudo pour charger la partie : ");
@@ -219,7 +219,7 @@ void nouvellePartie() {
     partieEnCours(&p);
 }
 
-void partieEnCours(Partie *p) {
+void partieEnCours(Partie* p) {
     int continuer = 1;
     int resultat;
 
@@ -256,7 +256,7 @@ void partieEnCours(Partie *p) {
     }
 }
 
-int jouerNiveau(Partie *p) {
+int jouerNiveau(Partie* p) {
     clrscr();
     int grille[LIGNES][COLONNES];
     Curseur curseur = {0,0,0,0,0};
@@ -354,7 +354,7 @@ void sauvegarderPartie(Partie p) {
 }
 
 
-int chargerPartie(Partie *p) {
+int chargerPartie(Partie* p) {
     char pseudo[50], ligne[200];
     clrscr();
     printf("Entrez votre pseudo pour charger la partie : ");
