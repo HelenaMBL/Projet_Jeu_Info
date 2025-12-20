@@ -1,4 +1,4 @@
-#include "fonctions.h"
+#include "affichage.h"
 
 /* =========================================================
    NOUVELLE PARTIE
@@ -18,7 +18,7 @@ void nouvellePartie() {
    PARTIE EN COURS
    ========================================================= */
 void partieEnCours(Partie *p) {
-    int continuer = 1;
+    boolean continuer = TRUE;
     int resultat;
 
     while(continuer && p->vies>0 && p->niveau<=NB_NIVEAUX) {
@@ -27,8 +27,9 @@ void partieEnCours(Partie *p) {
         if(resultat==1) { // Niveau réussi
             p->niveau++;
             if(p->niveau==2){
-                 p->coupsRestants = COUPS_NIV2;
-                 for(int i=1; i<=NB_ITEMS; i++) p->objectifs[i] = OBJECTIFS_NIV2[i];
+                int objectifsNiv2[NB_ITEMS + 1] = OBJECTIFS_NIV2;
+                p->coupsRestants = COUPS_NIV2;
+                for(int i=1; i<=NB_ITEMS; i++) p->objectifs[i] = objectifsNiv2[i];
             }
             else if(p->niveau==3) p->coupsRestants = COUPS_NIV3;
             p->debutNiveau = time(NULL);
@@ -37,16 +38,16 @@ void partieEnCours(Partie *p) {
             if(p->vies>0) {
                 clrscr();
                 printf("\nPerte d'une vie !\n");
-                objectifs[]=
+                //p->objectifs[] ;
                 Sleep(2000);
             } else {
                 printf("\nGAME OVER\n");
-                continuer = 0;
+                continuer = FALSE;
                 Sleep(2000);
             }
         } else { // Quitter
             sauvegarderPartie(*p);
-            continuer = 0;
+            continuer = FALSE;
         }
     }
 
@@ -204,7 +205,7 @@ int chargerPartie(Partie *p) {
     return 0; // pseudo non trouvé
 }
 
-/*#include "fonctions.h"
+/*#include "affichage.h"
 
 
 void nouvellePartie() {

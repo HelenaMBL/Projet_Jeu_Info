@@ -1,4 +1,4 @@
-#include "fonctions.h"
+#include "affichage.h"
 
 // Fonnction de test pour les différentes fonctions du module jeu 
 /*Modifications réalisées 
@@ -292,7 +292,7 @@ int stabiliserGrille(int grille[LIGNES][COLONNES],Partie *p,int niveau){
 }
 
 
-/*#include "fonctions.h"
+/*#include "affichage.h"
    
 void initialiserGrille(int grille[LIGNES][COLONNES], int niveau) {
     int i, j;

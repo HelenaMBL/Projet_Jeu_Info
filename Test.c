@@ -5,9 +5,9 @@
 #include <windows.h>
 #include <wchar.h>
 
-#include "fonctions.h"
+#include "affichage.h"
 
-void afficherAnimationNiveau() {
+void testAfficherAnimationNiveau() {
     int width = 40;
     int height = 10;
     int step, x, y;
@@ -38,7 +38,7 @@ void afficherAnimationNiveau() {
 }
 
 int main() {
-    afficherAnimationNiveau();
+    testAfficherAnimationNiveau();
     return 0;
 }
 

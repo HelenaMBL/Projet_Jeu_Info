@@ -1,4 +1,4 @@
-#include "fonctions.h"
+#include "affichage.h"
 
 /* =========================================================
    AFFICHAGE DU MENU PRINCIPAL
@@ -166,7 +166,6 @@ void afficherInformations(Partie p, int tempsRestant) {
 }
 
 void afficherAnimationNiveau(int grille[LIGNES][COLONNES], Curseur curseur) {
-    int grille[LIGNES][COLONNES];
     int i, j;
     int x0=1;
     int y0 = 1;

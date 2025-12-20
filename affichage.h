@@ -93,7 +93,7 @@ void afficherItems(int grille[LIGNES][COLONNES], Curseur curseur);
 void afficherGrille(int grille[LIGNES][COLONNES], Curseur curseur);
 void afficherInformations(Partie p, int tempRestant);
 
-void afficherAnimationNiveau();
+void afficherAnimationNiveau(int grille[LIGNES][COLONNES], Curseur curseur);
 /* =========================================================
    PROTOTYPES - MODULE JEU (jeu.c)
    ========================================================= */

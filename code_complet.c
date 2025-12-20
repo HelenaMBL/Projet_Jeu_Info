@@ -1,4 +1,4 @@
-#include "fonctions.h"
+#include "affichage.h"
 
 /* =========================================================
    AFFICHAGE DU MENU PRINCIPAL
@@ -168,7 +168,7 @@ void afficherInformations(Partie p, int tempsRestant) {
 
 // deroulement.c 
 
-#include "fonctions.h"
+#include "affichage.h"
 
 /* =========================================================
    NOUVELLE PARTIE
@@ -364,7 +364,7 @@ int chargerPartie(Partie *p) {
 
 // jeu.c
 
-#include "fonctions.h"
+#include "affichage.h"
 
 // Fonnction de test pour les différentes fonctions du module jeu 
 /*Modifications réalisées 
@@ -613,7 +613,7 @@ int stabiliserGrille(int grille[LIGNES][COLONNES],Partie *p,int niveau){
 
 // main.c
 
-#include "fonctions.h"
+#include "affichage.h"
 
 int main() {
     SetConsoleOutputCP(CP_UTF8); //Si on veut utiliser des caracteres speciaux 
@@ -661,7 +661,7 @@ int main() {
 }
 
 
-// fonctions.h
+// affichage.h
 
 //#ifndef FONCTIONS_H
 #define FONCTIONS_H
@@ -814,7 +814,7 @@ int chargerPartie(Partie *p);
 
 /*//////// CODE COMPLET DU JEU //////////
 
-////////////////////////////////////////////////////////// Fonctions.h
+////////////////////////////////////////////////////////// affichage.h
 
 #ifndef FONCTIONS_H
 #define FONCTIONS_H
@@ -912,7 +912,7 @@ int chargerPartie(Partie *p);
 
 ////////////////////////////////////////////////////////// Deroulement.c
 
-#include "fonctions.h"
+#include "affichage.h"
 
 void nouvellePartie() {
     Partie p;
@@ -1079,7 +1079,7 @@ int chargerPartie(Partie *p) {
 }
 
 ////////////////////////////////////////////////////////// Affichage.c
-#include "fonctions.h"
+#include "affichage.h"
 
 void afficherMenu() {
     clrscr();
@@ -1200,7 +1200,7 @@ void afficherInformations(Partie p, int tempsRestant) {
 }
 
 ////////////////////////////////////////////////////////// Jeu.c
-#include "fonctions.h"
+#include "affichage.h"
    
 void initialiserGrille(int grille[LIGNES][COLONNES], int niveau) {
     int i, j;
@@ -1390,7 +1390,7 @@ void activerBonusCouleur(int grille[LIGNES][COLONNES], int type, Partie *p){
     remplirCasesVides(grille,p->niveau);
 }
 ////////////////////////////////////////////////////////// Main.c
-#include "fonctions.h"
+#include "affichage.h"
 
 int main() {
     SetConsoleOutputCP(CP_UTF8); //Si on veut utiliser des caracteres speciaux 

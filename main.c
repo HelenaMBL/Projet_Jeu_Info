@@ -1,4 +1,4 @@
-#include "fonctions.h"
+#include "affichage.h"
 
 int main() {
     srand((unsigned int)time(NULL));
@@ -46,7 +46,7 @@ int main() {
     return 0;
 }
 
-/*#include "fonctions.h"
+/*#include "affichage.h"
 
 int main() {
     SetConsoleOutputCP(CP_UTF8); //Si on veut utiliser des caracteres speciaux 

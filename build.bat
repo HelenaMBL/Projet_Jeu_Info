@@ -1,6 +1,6 @@
 cls
 
-mingw32-make CandyCrush.exe
+mingw32-make CandyCrush.exe Test.exe
 
 if ERRORLEVEL 1 (
     exit /b 1
