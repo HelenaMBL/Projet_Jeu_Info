@@ -1,6 +1,8 @@
 cls
 
-mingw32-make CandyCrush.exe TestAnimation.exe TestCadre.exe TestItems.exe
+mingw32-make all  
+
+
 
 if ERRORLEVEL 1 (
     exit /b 1

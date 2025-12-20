@@ -23,10 +23,14 @@ TestAnimation.o : TestAnimation.c
 TestItems.o : TestItems.c 
 	gcc -c $< -o $@ 
 
+TestMenu.o : TestMenu.c
+	gcc -c $< -o $@ 
+
+
 TestCadre.exe : affichage.o Deroulement.o Jeu.o affichage_console.o TestCadre.o
 	gcc  $? -o $@ 
 
-TestAnimation.exe : affichage.o Deroulement.o Jeu.o affichage_console.o TestAnimation.o
+TestAnimation.exce : affichage.o Deroulement.o Jeu.o affichage_console.o TestAnimation.o
 	gcc  $? -o $@ 
 
 TestItems.exe : affichage.o Deroulement.o Jeu.o affichage_console.o TestItems.o
@@ -34,4 +38,9 @@ TestItems.exe : affichage.o Deroulement.o Jeu.o affichage_console.o TestItems.o
 
 CandyCrush.exe : affichage.o Deroulement.o Jeu.o main.o affichage_console.o
 	gcc  $? -o $@ 
+
+TestMenu.exe : affichage.o Deroulement.o Jeu.o affichage_console.o TestMenu.o
+	gcc  $? -o $@
+
+all : CandyCrush.exe TestAnimation.exe TestCadre.exe TestItems.exe TestMenu.exe
 

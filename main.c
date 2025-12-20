@@ -8,10 +8,8 @@ int main() {
     int quitter = 0;
 
     while(!quitter) {
-        afficherMenu();
-        choix = getch() - '0'; // lecture du chiffre
 
-        switch(choix) {
+        switch(afficherMenu()){
             case 1:
                 afficherRegles();
                 break;

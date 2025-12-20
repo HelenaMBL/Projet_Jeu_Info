@@ -81,7 +81,7 @@ typedef struct {
    ========================================================= */
 
 /* Menus */
-void afficherMenu();
+int afficherMenu();
 void afficherRegles();
 
 void remiseAZero();

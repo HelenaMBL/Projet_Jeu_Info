@@ -3,7 +3,7 @@
 /* =========================================================
    AFFICHAGE DU MENU PRINCIPAL
    ========================================================= */
-void afficherMenu() {
+int afficherMenu() {
     clrscr();
     hide_cursor();
     set_color(WHITE, BLACK);
@@ -22,6 +22,8 @@ void afficherMenu() {
 
     gotoxy(30, 10);
     printf("4. Quitter");
+    return getch() - '0';
+    
 }
 
 /* =========================================================
