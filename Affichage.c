@@ -78,7 +78,34 @@ void afficherRegles() {
 /* =========================================================
    AFFICHAGE DE LA GRILLE DE JEU
    ========================================================= */
-void afficherGrille(int grille[LIGNES][COLONNES], Curseur curseur) {
+
+void remiseAZero(){
+    gotoxy(0,2);
+    text_color(LIGHTGRAY);
+}
+
+void afficheLigne(const char* motif){
+    for (int x = 0; x <= COLONNES-1; x++) {
+            printf (motif);
+    }
+    printf ("\n");
+}
+
+void afficherCadre() {
+    remiseAZero();
+    printf ("+");
+    afficheLigne("--+");
+    for (int y = 0; y <= LIGNES-1; y++) {
+        //for (int x = 0; x <= COLONNES-1; x++) {
+        printf("|");
+        afficheLigne("  |");
+        printf ("+");
+        afficheLigne("--+");
+        //}
+    }
+}
+
+   void afficherItems(int grille[LIGNES][COLONNES], Curseur curseur) {
     int i, j;
     int x0 = 2;
     int y0 = 3;
@@ -86,7 +113,7 @@ void afficherGrille(int grille[LIGNES][COLONNES], Curseur curseur) {
     for (i = 0; i < LIGNES; i++) {
         for (j = 0; j < COLONNES; j++) {
 
-            gotoxy(x0 + j * 2, y0 + i);
+            gotoxy(x0 + j * 3, y0 + i * 2);
 
             // Mise en évidence du curseur
             if (curseur.ligne == i && curseur.colonne == j) {
@@ -113,6 +140,10 @@ void afficherGrille(int grille[LIGNES][COLONNES], Curseur curseur) {
         }
     }
 }
+void afficherGrille(int grille[LIGNES][COLONNES], Curseur curseur) {
+    afficherCadre();
+    afficherItems(grille, curseur);
+}
 
 /* =========================================================
    AFFICHAGE DES INFORMATIONS DE JEU
@@ -130,6 +161,6 @@ void afficherInformations(Partie p, int tempsRestant) {
 
     gotoxy(45, y++); printf("Objectifs :");
     for(int i=1; i<=NB_ITEMS; i++) {
-        gotoxy(47, y++); printf("Item %d : %d   ", i, p.objectifRestants[i]); // espaces pour nettoyer
+        gotoxy(47, y++); printf("Item %d : %d   ", i, p.objectifs[i]); // espaces pour nettoyer
     }
 }
