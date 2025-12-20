@@ -43,19 +43,13 @@ int permutationValide(int grille[LIGNES][COLONNES], int l1, int c1, int l2, int 
 
     Partie tempPartie = {0};
 
-    int valide =
-        detecterSuites4(copie, &tempPartie) ||
-        detecterSuites6(copie, &tempPartie) ||
-        detecterCroix(copie, &tempPartie) ||
-        detecterCarre(copie, &tempPartie);
 
-    if(valide) {
         temp = grille[l1][c1];
         grille[l1][c1] = grille[l2][c2];
         grille[l2][c2] = temp;
-    }
 
-    return valide;
+
+    return 1;
 }
 
 
