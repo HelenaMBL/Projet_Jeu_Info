@@ -125,13 +125,13 @@ void afficherCadre() {
 
             // Affichage de l’item
             switch (grille[i][j]) {
-                case ITEM_1: text_color(LIGHTRED);printf("♥"); break;
-                case ITEM_2: text_color(LIGHTGREEN); printf("♠"); break;
-                case ITEM_3: text_color(LIGHTMAGENTA); printf("♦"); break;
-                case ITEM_4: text_color(LIGHTCYAN); printf("♣"); break;
-                case ITEM_5: text_color(YELLOW); printf("★"); break;
-                case ITEM_BONUS: text_color(WHITE); printf("○"); break;
-                case ITEM_JOKER: text_color(WHITE); printf("●"); break;
+                case ITEM_1: text_color(LIGHTRED);printf("🐸"); break;
+                case ITEM_2: text_color(LIGHTGREEN); printf("⭐"); break;
+                case ITEM_3: text_color(LIGHTMAGENTA); printf("🧡"); break;
+                case ITEM_4: text_color(LIGHTCYAN); printf("💎"); break;
+                case ITEM_5: text_color(YELLOW); printf("🐼"); break;
+                case ITEM_BONUS: text_color(WHITE); printf("🎯"); break;
+                case ITEM_JOKER: text_color(WHITE); printf("😎"); break;
                 default: printf(" ");
             }
 
@@ -139,6 +139,7 @@ void afficherCadre() {
         }
     }
 }
+
 void afficherGrille(int grille[LIGNES][COLONNES], Curseur curseur) {
     afficherCadre();
     afficherItems(grille, curseur);
