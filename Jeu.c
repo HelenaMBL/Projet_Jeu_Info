@@ -18,11 +18,10 @@ void initialiserGrille(int grille[LIGNES][COLONNES], int niveau) {
 
 /* Verifie qu'il n'y a pas de figure speciale au debut */
 int verifierGrilleInitiale(int grille[LIGNES][COLONNES]) {
-    Partie temp = {0};
-    return !(detecterSuites4(grille, &temp) ||
-             detecterSuites6(grille, &temp) ||
-             detecterCroix(grille, &temp) ||
-             detecterCarre(grille, &temp));
+    return !(detecterSuites4(grille, NULL) ||
+             detecterSuites6(grille, NULL) ||
+             detecterCroix(grille, NULL) ||
+             detecterCarre(grille, NULL));
 }
 
 /* =========================================================
@@ -86,8 +85,10 @@ int detecterSuites4(int grille[LIGNES][COLONNES], Partie* p) {
                 val == grille[i][j+1] &&
                 val == grille[i][j+2] &&
                 val == grille[i][j+3]) {
-                grille[i][j] = grille[i][j+1] = grille[i][j+2] = grille[i][j+3] = ITEM_VIDE;
-                if(p) p->objectifs[val]-=4;
+                if (p) {
+                    grille[i][j] = grille[i][j+1] = grille[i][j+2] = grille[i][j+3] = ITEM_VIDE;
+                    p->objectifs[val] -= 4;
+                }
                 count++;
             }
         }
@@ -99,8 +100,10 @@ int detecterSuites4(int grille[LIGNES][COLONNES], Partie* p) {
                 val == grille[i+1][j] &&
                 val == grille[i+2][j] &&
                 val == grille[i+3][j]) {
-                grille[i][j] = grille[i+1][j] = grille[i+2][j] = grille[i+3][j] = ITEM_VIDE;
-                if(p) p->objectifs[val]-=4;
+                if (p) {
+                    grille[i][j] = grille[i+1][j] = grille[i+2][j] = grille[i+3][j] = ITEM_VIDE;
+                    p->objectifs[val] -= 4;
+                }
                 count++;
             }
         }
@@ -119,15 +122,17 @@ int detecterSuites6(int grille[LIGNES][COLONNES], Partie* p) {
                 if (grille[i][j+k] != val) { ok = 0; break; }
 
             if (ok) {
-                int supprimes = 0;
-                for (int ii = 0; ii < LIGNES; ii++)
-                    for (int jj = 0; jj < COLONNES; jj++)
-                        if (grille[ii][jj] == val) {
-                            grille[ii][jj] = ITEM_VIDE;
-                            supprimes++;
-                        }
+                if (p) {
+                    int supprimes = 0;
+                    for (int ii = 0; ii < LIGNES; ii++)
+                        for (int jj = 0; jj < COLONNES; jj++)
+                            if (grille[ii][jj] == val) {
+                                grille[ii][jj] = ITEM_VIDE;
+                                supprimes++;
+                            }
 
-                if (p) p->objectifs[val] -= supprimes;
+                    p->objectifs[val] -= supprimes;
+                }
 
                 return 1; // une seule fois
             }
@@ -144,26 +149,28 @@ int detecterCroix(int grille[LIGNES][COLONNES], Partie* p) {
                 val == grille[i-1][j] && val == grille[i+1][j] &&
                 val == grille[i][j-1] && val == grille[i][j+1]) {
 
-                int supprimes = 0;
+                if (p) {
+                    int supprimes = 0;
 
-                for (int x = 0; x < LIGNES; x++) {
-                    if (grille[x][j] == val) {
-                        grille[x][j] = ITEM_VIDE;
-                        supprimes++;
+                    for (int x = 0; x < LIGNES; x++) {
+                        if (grille[x][j] == val) {
+                            grille[x][j] = ITEM_VIDE;
+                            supprimes++;
+                        }
                     }
-                }
 
-                for (int y = 0; y < COLONNES; y++) {
-                    if (grille[i][y] == val) {
-                        grille[i][y] = ITEM_VIDE;
-                        supprimes++;
+                    for (int y = 0; y < COLONNES; y++) {
+                        if (grille[i][y] == val) {
+                            grille[i][y] = ITEM_VIDE;
+                            supprimes++;
+                        }
                     }
+
+                    // centre compté deux fois → corriger
+                    supprimes--;
+
+                    p->objectifs[val] -= supprimes;
                 }
-
-                // centre compté deux fois → corriger
-                supprimes--;
-
-                if (p) p->objectifs[val] -= supprimes;
                 return 1;
             }
         }
@@ -188,21 +195,23 @@ int detecterCarre(int grille[LIGNES][COLONNES], Partie* p) {
                     }
 
             if (ok) {
-                int supprimes = 0;
+                if (p) {
+                    int supprimes = 0;
 
-                // 2️⃣ Supprimer TOUS les items val DANS la zone du carré
-                // (y compris ceux "au centre")
-                for (int ii = 0; ii < 4; ii++) {
-                    for (int jj = 0; jj < 4; jj++) {
-                        if (grille[i+ii][j+jj] == val) {
-                            grille[i+ii][j+jj] = ITEM_VIDE;
-                            supprimes++;
+                    // 2️⃣ Supprimer TOUS les items val DANS la zone du carré
+                    // (y compris ceux "au centre")
+                    for (int ii = 0; ii < 4; ii++) {
+                        for (int jj = 0; jj < 4; jj++) {
+                            if (grille[i+ii][j+jj] == val) {
+                                grille[i+ii][j+jj] = ITEM_VIDE;
+                                supprimes++;
+                            }
                         }
                     }
-                }
 
-                // Mise à jour des objectifs
-                if (p) p->objectifs[val] -= supprimes;
+                    // Mise à jour des objectifs
+                    p->objectifs[val] -= supprimes;
+                }
                 return 1; // une seule activation par stabilisation
             }
         }

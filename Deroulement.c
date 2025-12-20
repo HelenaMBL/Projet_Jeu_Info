@@ -104,7 +104,7 @@ int jouerNiveau(Partie* p) {
                 case 's': case 'S': case 80:if(curseur.ligne<LIGNES-1) curseur.ligne++;rafraichir=1; break;
                 case 'q': case 'Q': case 75:if(curseur.colonne>0) curseur.colonne--;rafraichir=1; break;
                 case 'd': case 'D': case 77:if(curseur.colonne<COLONNES-1) curseur.colonne++;rafraichir=1; break;
-                case ' ': // selection / permutation
+                case ' ': 
                     if(!curseur.selectionActive) {
                         curseur.selectionActive=1;
                         curseur.selLigne=curseur.ligne;
