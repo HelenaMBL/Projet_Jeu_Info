@@ -2,6 +2,8 @@
 #define AFFICHAGE_CONSOLE_H_INCLUDED
 #include <windows.h>
 #include <conio.h>
+
+
 // 16 couleurs utilisables en mode console de base
 typedef enum{
     BLACK,
@@ -21,6 +23,8 @@ typedef enum{
     YELLOW,
     WHITE
 } COLORS;
+
+
 //effacer la console
 void clrscr ();
 //d�placer le curseur � la position horizontale x, verticale y

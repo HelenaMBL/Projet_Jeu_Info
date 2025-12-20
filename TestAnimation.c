@@ -5,7 +5,7 @@
 #include <windows.h>
 #include <wchar.h>
 
-#include "affichage.h"
+#include "affichage_console.h"
 
 void testAfficherAnimationNiveau() {
     int width = 40;

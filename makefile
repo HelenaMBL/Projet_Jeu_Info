@@ -14,14 +14,23 @@ Jeu.o : Jeu.c
 main.o : main.c 
 	gcc -c $< -o $@ 
 
-Test.o : Test.c 
+TestCadre.o : TestCadre.c 
 	gcc -c $< -o $@ 
 
+TestAnimation.o : TestAnimation.c 
+	gcc -c $< -o $@ 
 
-Test.exe : affichage.o Deroulement.o Jeu.o affichage_console.o Test.o
+TestItems.o : TestItems.c 
+	gcc -c $< -o $@ 
+
+TestCadre.exe : affichage.o Deroulement.o Jeu.o affichage_console.o TestCadre.o
 	gcc  $? -o $@ 
 
+TestAnimation.exe : affichage.o Deroulement.o Jeu.o affichage_console.o TestAnimation.o
+	gcc  $? -o $@ 
 
+TestItems.exe : affichage.o Deroulement.o Jeu.o affichage_console.o TestItems.o
+	gcc  $? -o $@ 
 
 CandyCrush.exe : affichage.o Deroulement.o Jeu.o main.o affichage_console.o
 	gcc  $? -o $@ 
