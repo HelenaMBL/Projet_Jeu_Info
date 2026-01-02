@@ -2,10 +2,6 @@
 #define AFFICHAGE_CONSOLE_H_INCLUDED
 #include <windows.h>
 #include <conio.h>
-
-#define HAUTEUR  8  //25
-#define LARGEUR  8  //45
-
 // 16 couleurs utilisables en mode console de base
 typedef enum{
     BLACK,
