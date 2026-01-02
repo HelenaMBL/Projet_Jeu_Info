@@ -1,8 +1,10 @@
+#include "affichage_console.h"
 #include "fonctions.h"
+#include "affichage.h"
 
 // Affichages en jeu 
 
-void afficherMenu() {
+int afficherMenu() {
     clrscr();
     hide_cursor();
     set_color(WHITE, BLACK);
@@ -21,6 +23,8 @@ void afficherMenu() {
 
     gotoxy(30, 10);
     printf("4. Quitter");
+    return getch() - '0';
+    
 }
 
 void afficherRegles() {
@@ -131,23 +135,23 @@ void afficherGrille(int grille[LIGNES][COLONNES], Curseur curseur) {
     afficherItems(grille, curseur);
 }
 
-void afficherInformations(Partie p, int tempsRestant) {
+void afficherInformations(Partie* p, int tempsRestant) {
     int y = 3;
 
     set_color(WHITE, BLACK);
 
-    gotoxy(45, y++); printf("Niveau : %d", p.niveau);
-    gotoxy(45, y++); printf("Vies restantes : %d", p.vies);
-    gotoxy(45, y++); printf("Coups restants : %3d", p.coupsRestants);
+    gotoxy(45, y++); printf("Niveau : %d", p->niveau);
+    gotoxy(45, y++); printf("Vies restantes : %d", p->vies);
+    gotoxy(45, y++); printf("Coups restants : %3d", p->coupsRestants);
     gotoxy(45, y++); printf("Temps restant : %3d s  ", tempsRestant);
     y++;
 
     gotoxy(45,y++);printf("Objectifs :");
-    gotoxy(47,y++);printf("🐸 : %3d", p.objectifs[1]);
-    gotoxy(47,y++);printf("⭐ : %3d", p.objectifs[2]);
-    gotoxy(47,y++);printf("🧡 : %3d", p.objectifs[3]);
-    gotoxy(47,y++);printf("💎 : %3d", p.objectifs[4]);
-    gotoxy(47,y++);printf("🐼 : %3d", p.objectifs[5]);
+    gotoxy(47,y++);printf("🐸 : %3d", p->objectifs[1]);
+    gotoxy(47,y++);printf("⭐ : %3d", p->objectifs[2]);
+    gotoxy(47,y++);printf("🧡 : %3d", p->objectifs[3]);
+    gotoxy(47,y++);printf("💎 : %3d", p->objectifs[4]);
+    gotoxy(47,y++);printf("🐼 : %3d", p->objectifs[5]);
 
     set_color(WHITE,BLACK);
 }

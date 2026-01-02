@@ -9,7 +9,6 @@
 #include <windows.h>
 #include <wchar.h>
 
-#include "affichage_console.h"
 
 ////////////////////////////////////////// Constantes 
 
@@ -63,18 +62,6 @@ typedef struct {
     int selLigne;
     int selColonne;
 } Curseur;
-
-// Prototypes du module affichage 
-
-
-void afficherMenu();
-void afficherRegles();
-void remiseAZero(); // Fonction qui remet le curseur en haut de la page quand il arrive en bas 
-void afficheLigne(const char* motifDebut, const char* motif, const char* motifFin); // Fonction qui affiche la grille
-void afficherCadre();
-void afficherItems(int grille[LIGNES][COLONNES], Curseur curseur);
-void afficherGrille(int grille[LIGNES][COLONNES], Curseur curseur);
-void afficherInformations(Partie p, int tempRestant);
 
 // Animations de niveau
 void animationNiveauGagne(int niveau);

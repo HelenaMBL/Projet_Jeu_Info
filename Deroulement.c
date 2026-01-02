@@ -1,4 +1,5 @@
-#include "fonctions.h"
+#include "affichage_console.h"
+#include "affichage.h"
 
 // Deroulement du jeu 
 
@@ -84,7 +85,7 @@ int jouerNiveau(Partie *p) {
         int tempsEcoule = (int)difftime(time(NULL), debut);
         int tempsRestant = tempsMax - tempsEcoule; 
         afficherGrille(grille, curseur);
-        afficherInformations(*p, tempsRestant);
+        afficherInformations(p, tempsRestant);
         if(!existePermutation(grille)) {
             gotoxy(45, 20);
             printf("Plus de combinaisons possibles !");
@@ -128,7 +129,7 @@ int jouerNiveau(Partie *p) {
         Sleep(50);
         if(rafraichir){
             afficherGrille(grille,curseur);
-            afficherInformations(*p,tempsRestant);
+            afficherInformations(p,tempsRestant);
             rafraichir = 0;
         }
     }

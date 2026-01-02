@@ -1,4 +1,5 @@
-#include "fonctions.h"
+#include "affichage_console.h"
+#include "affichage.h"
 
 int main() {
     srand((unsigned int)time(NULL));
@@ -8,10 +9,8 @@ int main() {
     int quitter = 0;
 
     while(!quitter) {
-        afficherMenu();
-        choix = getch() - '0';
 
-        switch(choix) {
+        switch(afficherMenu()) {
             case 1:
                 afficherRegles();
                 break;
