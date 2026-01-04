@@ -81,8 +81,8 @@ int jouerNiveau(Partie *p) {
     clrscr();
     afficherCadre();
 
-    while(1) {
-        int tempsEcoule = (int)difftime(time(NULL), debut);
+    while(1) { // Toujours vrai, on boucle jusqu'à un return
+        int tempsEcoule = (int)difftime(time(NULL), debut); // difference de temps depuis le debut du niveau
         int tempsRestant = tempsMax - tempsEcoule; 
         afficherGrille(grille, curseur);
         afficherInformations(p, tempsRestant);
@@ -96,14 +96,14 @@ int jouerNiveau(Partie *p) {
             printf("                                ");
         }
         if(tempsEcoule>=tempsMax) return 0;
-        if(kbhit()) {
-            touche = getch();
+        if(kbhit()) { // Si une touche a été pressée
+            touche = getch(); // Récupérer la touche
             switch(touche) {
-                case 'z': case 'Z': case 72:if(curseur.ligne>0) curseur.ligne--;rafraichir=1; break;
-                case 's': case 'S': case 80:if(curseur.ligne<LIGNES-1) curseur.ligne++;rafraichir=1; break;
-                case 'q': case 'Q': case 75:if(curseur.colonne>0) curseur.colonne--;rafraichir=1; break;
-                case 'd': case 'D': case 77:if(curseur.colonne<COLONNES-1) curseur.colonne++;rafraichir=1; break;
-                case ' ':
+                case 'z': case 'Z': case 72:if(curseur.ligne>0) curseur.ligne--;rafraichir=1; break; // Flèche haut
+                case 's': case 'S': case 80:if(curseur.ligne<LIGNES-1) curseur.ligne++;rafraichir=1; break; // Flèche bas
+                case 'q': case 'Q': case 75:if(curseur.colonne>0) curseur.colonne--;rafraichir=1; break; // Flèche gauche
+                case 'd': case 'D': case 77:if(curseur.colonne<COLONNES-1) curseur.colonne++;rafraichir=1; break; // Flèche droite
+                case ' ': // Espace pour sélectionner/déplacer
                     if(!curseur.selectionActive) {
                         curseur.selectionActive=1;
                         curseur.selLigne=curseur.ligne;
@@ -117,15 +117,15 @@ int jouerNiveau(Partie *p) {
                     }
                     rafraichir=1;
                     break;
-                case 27:
-                    return -1;
+                case 27: // Echap pour quitter le niveau
+                    return -1; // Echappe pour quitter le niveau et sauvegarder
             }
         }
         int objectifsRestants=0;
         for(int i=1;i<=NB_ITEMS;i++) objectifsRestants+=p->objectifs[i];
-        if(objectifsRestants<=0) return 1;
+        if(objectifsRestants<=0) return 1; // Niveau réussi
 
-        if(p->coupsRestants<=0) return 0;
+        if(p->coupsRestants<=0) return 0; // Niveau perdu
         Sleep(50);
         if(rafraichir){
             afficherGrille(grille,curseur);
@@ -151,8 +151,8 @@ void sauvegarderPartie(Partie p) {
         printf("\nEntrez votre pseudo pour sauvegarder : ");
         scanf("%49s", pseudo);
 
-        FILE *f = fopen("sauvegarde.txt","a");
-        if(f) {
+        FILE *f = fopen("sauvegarde.txt","a"); // Ouvrir en mode ajout
+        if(f) { // Si le fichier s'ouvre correctement
             fprintf(f,"%s %d %d %d %lld %d %d %d %d %d %d\n",pseudo, p.niveau, p.vies, p.coupsRestants, p.debutNiveau,p.objectifs[1],p.objectifs[2],p.objectifs[3],p.objectifs[4],p.objectifs[5],0);
             fclose(f);
             printf("Partie sauvegardee\n");
@@ -174,14 +174,14 @@ int chargerPartie(Partie *p) {
     scanf("%49s", pseudo);
 
     FILE *f = fopen("sauvegarde.txt","r");
-    if(!f) return 0;
+    if(!f) return 0; // Si le fichier n'existe pas ou ne peut pas être ouvert
 
-    while(fgets(ligne,sizeof(ligne),f)) {
+    while(fgets(ligne,sizeof(ligne),f)) { // Lire chaque ligne
         char fichierPseudo[50];
         int n,v,c,objet1,objet2,objet3,objet4,objet5;
         long t;
         sscanf(ligne,"%s %d %d %d %ld %d %d %d %d %d %*d",fichierPseudo,&n,&v,&c,&t,&objet1,&objet2,&objet3,&objet4,&objet5);
-        if(strcmp(fichierPseudo,pseudo)==0) {
+        if(strcmp(fichierPseudo,pseudo)==0) { // Pseudo trouvé
             p->niveau = n;
             p->vies = v;
             p->coupsRestants = c;

@@ -10,15 +10,15 @@ void initialiserGrille(int grille[LIGNES][COLONNES], int niveau) {
                 grille[i][j] = (rand() % NB_ITEMS) + 1;
             }
         }
-    } while (!verifierGrilleInitiale(grille)); // Evite figures speciales au depart
+    } while (!verifierGrilleInitiale(grille)); // Quand on detecte une figure, on reste dans la boucle et on regenère la grille
 }
 
-int verifierGrilleInitiale(int grille[LIGNES][COLONNES]) {
+int verifierGrilleInitiale(int grille[LIGNES][COLONNES]) { //fonction vrai quand on ne detecte aucune suite, croix, carré...
     Partie temp = {0};
     return !(detecterSuites4(grille, &temp) ||
              detecterSuites6(grille, &temp) ||
              detecterCroix(grille, &temp) ||
-             detecterCarre(grille, &temp));
+             detecterCarre(grille, &temp)); 
 }
 
 // Gestion des Objectifs et des Permutations  
@@ -40,7 +40,7 @@ void initialiserObjectifs(Partie *p) {
 int detecterSuites4(int grille[LIGNES][COLONNES], Partie *p) {
     int i, j, count = 0;
     for (i = 0; i < LIGNES; i++) {
-        for (j = 0; j < COLONNES - 3; j++) {
+        for (j = 0; j < COLONNES - 3; j++) { // -3 car on regarde j, j+1, j+2, j+3
             int val = grille[i][j];
             if (val > 0 &&
                 val == grille[i][j+1] &&
@@ -70,26 +70,51 @@ int detecterSuites4(int grille[LIGNES][COLONNES], Partie *p) {
 
 int detecterSuites6(int grille[LIGNES][COLONNES], Partie *p) {
     for (int i = 0; i < LIGNES; i++) {
-        for (int j = 0; j <= COLONNES - 6; j++) {
+        for (int j = 0; j < COLONNES - 5; j++) {
             int val = grille[i][j];
-            if (val <= 0) continue;
-
+            if (val <= 0) continue; // Ignorer les cases vides
+            
             int ok = 1;
             for (int k = 1; k < 6; k++)
                 if (grille[i][j+k] != val) { ok = 0; break; }
 
-            if (ok) {
+            if (ok) { // Suite de 6 horizontales trouvée SI OK=1 (TRUE)
                 int supprimes = 0;
                 for (int ii = 0; ii < LIGNES; ii++)
                     for (int jj = 0; jj < COLONNES; jj++)
-                        if (grille[ii][jj] == val) {
-                            grille[ii][jj] = ITEM_VIDE;
-                            supprimes++;
+                        if (grille[ii][jj] == val) { 
+                            grille[ii][jj] = ITEM_VIDE; 
+                            supprimes++; // Supprimer toutes les occurrences de cet item
                         }
 
-                if (p) p->objectifs[val] -= supprimes;
+                if (p) p->objectifs[val] -= supprimes; // Mettre à jour les objectifs (detecter suite de 6= objectif atteint) )
 
-                return 1;
+                return 1; // On arrête après la première détection
+            }
+        }
+    }
+
+    for (int j = 0; j < COLONNES; j++) {
+        for (int i = 0; i < LIGNES - 5; i++) {
+            int val = grille[i][j];
+            if (val <= 0) continue; // Ignorer les cases vides
+            
+            int ok = 1;
+            for (int k = 1; k < 6; k++)
+                if (grille[i+k][j] != val) { ok = 0; break; }
+
+            if (ok) { // Suite de 6 verticales trouvée SI OK=1 (TRUE)
+                int supprimes = 0;
+                for (int jj = 0; jj < COLONNES; jj++)
+                    for (int ii = 0; ii < LIGNES; ii++)
+                        if (grille[ii][jj] == val) { 
+                            grille[ii][jj] = ITEM_VIDE; 
+                            supprimes++; // Supprimer toutes les occurrences de cet item
+                        }
+
+                if (p) p->objectifs[val] -= supprimes; // Mettre à jour les objectifs (detecter suite de 6= objectif atteint) )
+
+                return 1; // On arrête après la première détection
             }
         }
     }
@@ -97,29 +122,29 @@ int detecterSuites6(int grille[LIGNES][COLONNES], Partie *p) {
 }
 
 int detecterCroix(int grille[LIGNES][COLONNES], Partie *p) {
-    for (int i = 1; i < LIGNES - 1; i++) {
-        for (int j = 1; j < COLONNES - 1; j++) {
+    for (int i = 1; i < LIGNES - 1; i++) { // éviter les bords sinon impossible d'avoir une croix
+        for (int j = 1; j < COLONNES - 1; j++) { // éviter les bords sinon impossible d'avoir une croix
             int val = grille[i][j];
-            if (val > 0 &&
-                val == grille[i-1][j] && val == grille[i+1][j] &&
-                val == grille[i][j-1] && val == grille[i][j+1]) {
+            if (val > 0 && //car val==0 signifie case vide car ITEM_VIDE==0
+                val == grille[i-1][j] && val == grille[i+1][j] && // Vvertical
+                val == grille[i][j-1] && val == grille[i][j+1]) { // Horizontal
 
                 int supprimes = 0;
 
-                for (int x = 0; x < LIGNES; x++) {
+                for (int x = 0; x < LIGNES; x++) { // Supprimer l'item de la colonne
                     if (grille[x][j] == val) {
                         grille[x][j] = ITEM_VIDE;
-                        supprimes++;
+                        supprimes++; // Compter les items supprimés
                     }
                 }
 
-                for (int y = 0; y < COLONNES; y++) {
+                for (int y = 0; y < COLONNES; y++) { // Supprimer l'item de la ligne
                     if (grille[i][y] == val) {
                         grille[i][y] = ITEM_VIDE;
-                        supprimes++;
+                        supprimes++; 
                     }
                 }
-                supprimes--;
+                //supprimes--; 
 
                 if (p) p->objectifs[val] -= supprimes;
                 return 1;
@@ -130,23 +155,23 @@ int detecterCroix(int grille[LIGNES][COLONNES], Partie *p) {
 }
 
 int detecterCarre(int grille[LIGNES][COLONNES], Partie *p) {
-    for (int i = 0; i <= LIGNES - 4; i++) {
-        for (int j = 0; j <= COLONNES - 4; j++) {
+    for (int i = 0; i < LIGNES - 3; i++) {
+        for (int j = 0; j < COLONNES - 3; j++) {
 
             int val = grille[i][j];
-            if (val <= 0) continue;
-            int ok = 1;
-            for (int ii = 0; ii < 4 && ok; ii++)
-                for (int jj = 0; jj < 4; jj++)
-                    if (grille[i+ii][j+jj] != val) {
-                        ok = 0;
+            if (val <= 0) continue; 
+            int ok = 1; 
+            for (int ii = 0; ii < 3 && ok; ii++)
+                for (int jj = 0; jj < 3; jj++)
+                    if (grille[i+ii][j+jj] != val) { 
+                        ok = 0; // Pas un carré
                         break;
                     }
 
-            if (ok) {
+            if (ok) { // Carré trouvé
                 int supprimes = 0;
-                for (int ii = 0; ii < 4; ii++) {
-                    for (int jj = 0; jj < 4; jj++) {
+                for (int ii = 0; ii < 3; ii++) {
+                    for (int jj = 0; jj < 3; jj++) {
                         if (grille[i+ii][j+jj] == val) {
                             grille[i+ii][j+jj] = ITEM_VIDE;
                             supprimes++;
@@ -179,7 +204,7 @@ int existePermutation(int grille[LIGNES][COLONNES]) {
 
 int permutationValide(int grille[LIGNES][COLONNES], int l1, int c1, int l2, int c2) {
 
-    if (abs(l1 - l2) + abs(c1 - c2) != 1)
+    if (abs(l1 - l2) + abs(c1 - c2) != 1) // Vérifier que les cases sont adjacentes avec les écarts en valeurs absolues égal à 1 car elles doivent être soit sur la même ligne et colonnes adjacentes, soit sur la même colonne et lignes adjacentes
         return 0;
 
     int copie[LIGNES][COLONNES];
@@ -212,24 +237,37 @@ void melangerGrille(int grille[LIGNES][COLONNES]) {
 
 void appliquerGravite(int grille[LIGNES][COLONNES], Partie *p) {
     for(int j=0;j<COLONNES;j++){
-        for(int i=LIGNES-2;i>=0;i--){
+        for(int i=LIGNES-2;i>=0;i--){ // Commencer de l'avant-dernière ligne vers le haut car la dernière ligne ne peut pas tomber, on remonte car les cases du dessus peuvent tomber
             if(grille[i][j]!=ITEM_VIDE){
                 int ligne=i;
                 while(ligne+1<LIGNES && grille[ligne+1][j]==ITEM_VIDE){
-                    grille[ligne+1][j]=grille[ligne][j];
-                    grille[ligne][j]=ITEM_VIDE;
+                    grille[ligne+1][j]=grille[ligne][j]; // Faire tomber l'item d'un cran
+                    grille[ligne][j]=ITEM_VIDE; // Mettre la case précédente à vide
                     ligne++;
                 }
             }
         }
     }
     for(int j=0;j<COLONNES;j++){
-    if(grille[LIGNES-1][j] == ITEM_JOKER) {
-        int cible = (rand() % NB_ITEMS) + 1;
-        p->objectifs[cible] = 0;
-        grille[LIGNES-1][j] = ITEM_VIDE;
+        if(grille[LIGNES-1][j] == ITEM_JOKER) { // Si un joker est en bas, on le supprime et on choisit un nouvel objectif aléatoire
+            int cible = (rand() % NB_ITEMS) + 1; // Choisir un objectif aléatoire d'items entre 1 et NB_ITEMS
+            p->objectifs[cible] = 0; // Marquer l'objectif comme atteint
+            grille[LIGNES-1][j] = ITEM_VIDE; // Supprimer le joker
+        }
     }
-}
+
+    for(int j=0;j<COLONNES;j++){ // Refaire une passe pour gérer les jokers tombés
+        for(int i=LIGNES-2;i>=0;i--){ // Commencer de l'avant-dernière ligne vers le haut car la dernière ligne ne peut pas tomber, on remonte car les cases du dessus peuvent tomber
+            if(grille[i][j]!=ITEM_VIDE){
+                int ligne=i;
+                while(ligne+1<LIGNES && grille[ligne+1][j]==ITEM_VIDE){
+                    grille[ligne+1][j]=grille[ligne][j]; // Faire tomber l'item d'un cran
+                    grille[ligne][j]=ITEM_VIDE; // Mettre la case précédente à vide
+                    ligne++;
+                }
+            }
+        }
+    }
 
 }
 
@@ -237,7 +275,7 @@ void remplirCasesVides(int grille[LIGNES][COLONNES], int niveau) {
     for(int i=0;i<LIGNES;i++)
         for(int j=0;j<COLONNES;j++)
             if(grille[i][j]==ITEM_VIDE)
-                grille[i][j]=(rand()%NB_ITEMS)+1;
+                grille[i][j]=(rand()%NB_ITEMS)+1; //+1 car on veut des valeurs entre 1 et NB_ITEMS
 }
 
 int stabiliserGrille(int grille[LIGNES][COLONNES],Partie *p,int niveau){
@@ -251,7 +289,7 @@ int stabiliserGrille(int grille[LIGNES][COLONNES],Partie *p,int niveau){
         appliquerGravite(grille, p);
         remplirCasesVides(grille,niveau);
     }while(total>0);
-    for(int i=1; i<=NB_ITEMS; i++){
+    for(int i=1; i<=NB_ITEMS; i++){ // S'assurer que les objectifs ne deviennent pas négatifs
         if(p&& p->objectifs[i]<0){
             p->objectifs[i]=0;
         }
